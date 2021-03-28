@@ -25,35 +25,35 @@
 
 namespace realsense2_camera
 {
-    class RealSenseNodeFactory : public rclcpp::Node
-    {
-    public:
-        explicit RealSenseNodeFactory(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
-        RealSenseNodeFactory(
-            const std::string & node_name, const std::string & ns,
-            const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
-        virtual ~RealSenseNodeFactory();
+  class RealSenseNodeFactory: public rclcpp::Node
+  {
+public:
+    explicit RealSenseNodeFactory(const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
+    RealSenseNodeFactory(
+      const std::string & node_name, const std::string & ns,
+      const rclcpp::NodeOptions & node_options = rclcpp::NodeOptions());
+    virtual ~RealSenseNodeFactory();
 
-    private:
-        void init();
-        void closeDevice();
-        void startDevice();
-        void changeDeviceCallback(rs2::event_information& info);
-        void getDevice(rs2::device_list list);
-        void tryGetLogSeverity(rs2_log_severity& severity) const;
-        static std::string parseUsbPort(std::string line);
+private:
+    void init();
+    void closeDevice();
+    void startDevice();
+    void changeDeviceCallback(rs2::event_information & info);
+    void getDevice(rs2::device_list list);
+    void tryGetLogSeverity(rs2_log_severity & severity) const;
+    static std::string parseUsbPort(std::string line);
 
-        rclcpp::Node::SharedPtr _node;
-        rs2::device _device;
-        std::unique_ptr<BaseRealSenseNode> _realSenseNode;
-        rs2::context _ctx;
-        std::string _serial_no;
-        std::string _usb_port_id;
-        std::string _device_type;
-        bool _initial_reset;
-        std::thread _query_thread;
-        bool _is_alive;
-        rclcpp::Logger _logger;
-    };
+    rclcpp::Node::SharedPtr _node;
+    rs2::device _device;
+    std::unique_ptr < BaseRealSenseNode > _realSenseNode;
+    rs2::context _ctx;
+    std::string _serial_no;
+    std::string _usb_port_id;
+    std::string _device_type;
+    bool _initial_reset;
+    std::thread _query_thread;
+    bool _is_alive;
+    rclcpp::Logger _logger;
+  };
 }//end namespace
 #endif //___REALSENSE_NODE_FACTORY_HEADER___
